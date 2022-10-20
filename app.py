@@ -22,6 +22,19 @@ import requests
 from db import init_db_command
 from user import User
 
+from flask_cors import CORS
+
+# Flask app setup
+app = Flask(__name__)
+
+CORS(app)
+cors=CORS(app,resources={
+    r"/*":{
+        "origins":"*"
+    }
+})
+
+
 # Configuration
 GOOGLE_CLIENT_ID = "415795974839-4jgf3lml68p3a4apak9r17vmfor1n454.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET ="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"
@@ -29,8 +42,7 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-# Flask app setup
-app = Flask(__name__)
+
 app.secret_key = "mysecretkey2"
 
 # User session management setup
@@ -177,6 +189,8 @@ def getResult():
     result=main_output(keyword,country)
 
     return jsonify(result)
+
+
 
 if __name__ == "__main__":
 
