@@ -65,14 +65,12 @@ def load_user(user_id):
 def index():
 
     if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
+        return jsonify({"user_name":current_user.name,"user_email":current_user.email,"user_profile_pic":current_user.profile_pic})
+                   
+                   
+                  
+                                        
+              
     else:
         return '<a class="button" href="/login">Google Login</a>'
 
@@ -179,7 +177,7 @@ def getResult():
     result=main_output(keyword,country)
 
     return jsonify(result)
-    
+
 if __name__ == "__main__":
 
     app.run(debug=True, port=5000, host="127.0.0.1")
